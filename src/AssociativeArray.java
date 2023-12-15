@@ -9,7 +9,7 @@ import static java.lang.reflect.Array.newInstance;
  * @author Maria Rodriguez
  * @author Samuel A. Rebelsky
  */
-public class AssociativeArray<K, V> {
+public class AssociativeArray<K,V> {
   // +-----------+---------------------------------------------------
   // | Constants |
   // +-----------+
@@ -113,6 +113,9 @@ public class AssociativeArray<K, V> {
    * Set the value associated with key to value. Future calls to get(key) will return value.
    */
   public void set(K key, V value) {
+    if(key == null){ // checks for null keys
+      return;
+    }
     if (size == 0) {
       pairs[0] = new KVPair<>(key, value);
       this.size++;
@@ -148,6 +151,10 @@ public class AssociativeArray<K, V> {
    */
 
   public V get(K key) throws KeyNotFoundException {
+    if(key == null) {
+      throw new KeyNotFoundException();
+    }
+
     int index = find(key);
     return pairs[index].value;
 
@@ -158,6 +165,9 @@ public class AssociativeArray<K, V> {
    */
 
   public boolean hasKey(K key) {
+    if(key == null) {
+      return false;
+    }
     try {
       find(key);
       return true;
